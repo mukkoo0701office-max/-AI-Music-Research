@@ -1,0 +1,20 @@
+
+name: AI Music Research Sync
+
+on:
+  workflow_dispatch:
+  repository_dispatch:
+    types: [research_updated]
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Confirm sync trigger
+        run: echo "Research sync triggered"
