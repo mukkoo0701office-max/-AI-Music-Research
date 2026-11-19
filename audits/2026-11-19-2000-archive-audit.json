@@ -1,0 +1,31 @@
+{
+  "date": "2026-11-19T20:00:00+09:00",
+  "source": "composition_db_update_20261119_1900.zip",
+  "zip_entries": 133,
+  "crc_ok": true,
+  "index_count": 119,
+  "id_range": [
+    1,
+    119
+  ],
+  "missing_ids": [],
+  "duplicate_ids": [],
+  "not_recovered_ranges": [
+    [
+      1,
+      93
+    ],
+    [
+      112,
+      115
+    ]
+  ],
+  "new_original_reports": 0,
+  "new_score_verifications": 0,
+  "generated_reports_resolved": [
+    117,
+    118,
+    119
+  ],
+  "original_v1_1_independently_accessed": false
+}
