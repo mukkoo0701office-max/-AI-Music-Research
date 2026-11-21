@@ -179,3 +179,136 @@ OUTPUT: LH event plan, RH line plan, role assignments, confidence/validation log
 - 2026-11-21 第1回：理論モデル・3調例・暫定アルゴリズム。
 - **2026-11-21 第2回：2/3**。Levine第17章の教則原典を直接確認し、同時LH3声の過大スパンを訂正、二音モデルとリズム生成v2を追加。
 - 第3回で史料・生成規則の最終監査を行い、未解決を引き継いで**必ず次のドロップ2へ移行**。第4回は行わない。
+
+
+---
+
+## 10. 第三次研究（累計3/3・最終回）：史料の射程、機能充足、イベント生成、監査（2026-11-21）
+
+### 10.1 研究の到達点と史料の階層
+
+**研究回数確定：3/3。以後この技法を単独テーマとして再研究しない。** 次の対象はドロップ2。既存第1・2次を保持し、以下の修正・最終監査を優先して読む。
+
+1. **直接参照した出版教則原典**：Mark Levine, *The Jazz Piano Book* (Sher Music, 1989), Ch.17 “Stride and Bud Powell Voicings”, pp.155–166。公開されている同章の本文を直接参照した。LevineはBud Powell型を**通常2音、ときに3音**で、根音・3度（10度）・6度・7度が中心と説明し、strideとの機能的対比を行う。出版元Sher Musicの公式目次でも第17章の開始ページ155を照合できる。これは**教則著者の説明の一次資料**だが、Powell本人の録音に関する一次資料ではない。
+   - 章本文: https://www.redemption-church.com/worship/Songs/Real%20books/Other%20stuff/Sheet%20Music%20-%20The%20Jazz%20Piano%20Book.pdf
+   - 出版社公式目次: https://www.shermusic.com/new/sample_pages/0961470151_toc.pdf
+2. **演奏一次資料**：Powellの《Body and Soul》でstrideを使う例が同章脚注で指示される。つまり「Powellはstrideを一切弾かなかった」は誤り。**今回は当該原録音を直接聴取・逐音採譜できていない**ため、具体的な和音の音高・拍位置を本人に帰属させない。
+3. **ユーザー評価との照合**：リポジトリの \`feedback/Feedback_001_Shizukana_Kitai_Piano_Jazz_Preferences.md\` に記録された「自然な機能進行、ガイドトーン、低音の明瞭性、過度な意外性の回避」と一致する。ただし好評な濃い4音以上の和声と、Powell型左手の**2音中心の簡潔さ**は同義でない。**ピアノ独奏の全体響きが4音以上**でも、LH単独は2音でよい。RH旋律・対旋律・ベースを含む総和で機能を判定する。
+
+**史料と創作モデルを厳密に分離する。** 本文の具体的音名・スコア・生成規則は研究者が作った独自例で、Powellの特定小節の採譜ではない。
+
+### 10.2 音度構造と「2音だけではコードを決定できない」問題
+
+- \`ROOT_THIRD\`: 1–3（または1–♭3）、根音と長短を示すが7thの種類は未確定。
+- \`ROOT_SEVENTH\`: 1–7/♭7、和音の7thを示すが3rd不在なら長短が未確定。
+- \`ROOT_SIXTH\`: 1–6、6th和音・経過・旋律との関係で意味が変わる。**「6thがあれば必ずドミナント」などの誤判定は禁止**。
+- \`ROOT_TENTH\`: 1–10/♭10、3rdの開離配置。広い同時左手把握を強制しない。
+- \`GUIDE_SHELL\`: 3–♭7（m7では♭3–♭7、maj7では3–7）、ベース奏者との協働時に有効。ただし**一般的な機能シェルと歴史的Powellの典型配置を同一視しない**。
+
+**機能充足条件**：時点のLH和音単独ではなく、和声スパン内のベース、RH旋律、他楽器の**音高と発音時刻**を参照して3rd/7thの有無を判定する。3rdが旋律で遅延提示される場合は、先行する和声が意図的に曖昧でもよい。sus、ペダル、ブルース的な3rdの可変性は例外。
+
+### 10.3 三調の独自配置と二つの異なる目的関数
+
+**A: Root+7thによる歴史的スタイルを参考にした疎な左手モデル**（下から順、各例は独自作例。RHは機能補足例であってPowell採譜ではない）
+
+| Key | ii / LH | V / LH | I / LH | RHで補う3rd |
+|---|---|---|---|---|
+| C | Dm7: D3–C4 | G7: G2–F3 | Cmaj7: C3–B3 | F4 / B3またはB4 / E4 |
+| F | Gm7: G2–F3 | C7: C3–B♭3 | Fmaj7: F2–E3 | B♭3またはB♭4 / E4 / A3またはA4 |
+| E♭ | Fm7: F2–E♭3 | B♭7: B♭2–A♭3 | E♭maj7: E♭2–D3 | A♭3またはA♭4 / D4 / G3またはG4 |
+
+この例は**LHを二音に保つこと**を優先するため、LHの声部進行は必ずしも最短距離ではない。右手の3rdを一斉打鍵する必要はない。右手の旋律線として時間的に提示する場合は和声スパンと拍位置を検証する。
+
+**B: 機能的ガイドトーンの最小移動モデル**（ベースが別にいる場合、LH2音）
+- Key C: Dm7 **F3–C4** → G7 **F3–B3** → Cmaj7 **E3–B3**。
+- Key F: Gm7 **B♭3–F4** → C7 **B♭3–E4** → Fmaj7 **A3–E4**。
+- Key E♭: Fm7 **A♭3–E♭4** → B♭7 **A♭3–D4** → E♭maj7 **G3–D4**。
+
+**注意**：Bは最小移動を示す汎用ガイドトーン配置であり、Powell本人の歴史的演奏パターンの統計的代表ではない。Bを「Bud Powell専用の正解」と分類するのは誤り。
+
+**実行済み検査（JavaScript）**：上記3調について、音度を半音クラスに変換し、ii♭7→V3の半音下降、ii♭3→V♭7の共通音、V♭7→I3の半音下降、V3→I7の共通音を計12条件検査、**12/12通過**。これは**理論上の音高クラス検査のみ**。同音異名の全調自動綴り、リズム・音響・実際の作品譜面との一致は検査していない。
+
+### 10.4 リズムは独立した生成対象
+
+LHの発音イベントはコードの開始と必ずしも一致しない。RHの密度・休止・強勢と、ベースの発音を条件にする。
+
+- \`ANTICIPATE\`: 次の和声を拍の裏で先取りする。ただし旋律が前和声の非和声音を保持する場合、先取りで強い衝突を起こす可能性があるため要検査。
+- \`ANSWER\`: RHフレーズ末尾の休符にLHの短い応答を置く。単なる空白埋めではなく、次の機能への誘導が必要。
+- \`SUPPORT\`: RHの長音や倚音の解決に和声的な支持を置く。
+- \`REST\`: RHが密でベースも機能を示すとき、LHの無発音を許容。
+
+**スウィング感の主因**はノートのオンセット、音価、フレーズ、アンサンブル相互作用であり、2音和音という音数からは導出できない。4分裏・2拍4拍を一律に割り当てる生成器もPowellの個性を保証しない。
+
+### 10.5 作編曲アルゴリズム v3（設計仕様、未実装）
+
+\`\`\`text
+INPUT:
+  harmony_spans, melody_events, bass_events, ensemble_roles,
+  style_mode, register_limits, phrase_boundaries, provenance
+FOR each harmonic span h:
+  determine chord root, quality, 3rd, 6th, 7th, suspensions
+  choose LH mode:
+    ROOT_THIRD | ROOT_SEVENTH | ROOT_SIXTH | ROOT_TENTH_SPLIT
+    | GUIDE_SHELL | REST | SOURCE_GROUNDED_OSTINATO
+  produce candidate pitch sets (usually 2 LH notes)
+  reject single-hand simultaneity outside conservative span limits;
+    split/roll or redistribute, do not silently label as simultaneous
+  compute chord_function_coverage across LH + RH + bass + strings
+  allow 3rd/7th omissions only if covered elsewhere or intentional ambiguity
+  enumerate attack events {ANTICIPATE, ANSWER, SUPPORT, REST}
+  reject overlaps with melody accents or bass low-register collisions
+  optimize:
+    functional clarity + melody primacy + rhythmic interaction
+    + register separation + voice-leading continuity
+    - low-register masking - repetitive attack templates
+  retain harmonic tension when melody's appoggiatura requires it
+VALIDATE:
+  spelled pitch classes, simultaneity, functional coverage,
+  event chronology, melody-harmony dissonance, role ownership,
+  provenance labels, independent-voice counterpoint
+OUTPUT:
+  LH events, orchestration roles, voice-leading graph,
+  confidence/validation log and unresolved exceptions
+\`\`\`
+
+**実装優先の不変条件**：
+1. 同時LH2音の外声幅は既定で11半音以下の候補を優先（音楽史上の規則ではなく保守的な配置フィルタ）。
+2. 各和声スパンで、機能に必要な3rd・7thの所在を追跡し、susや意図的曖昧化を例外タグで扱う。
+3. LHがrootを置かない場合、ベース・Vc・Cb等がrootを補うか、rootless意図を明示する。
+4. 先取り和音の新3rd/7thと前和声の旋律持続音の不協和を監査する。
+5. 音数の追加ではなく、**旋律の動機→変形→フレーズ終止**を優先してLHの発音密度を調節する。
+6. 生成時は声部別のイベントと音価を保持し、単一の垂直和音集合に平坦化しない。
+
+### 10.6 弦楽6声への移植（Powell型の本質は「疎な和声応答」）
+
+- Vn1：RH旋律の歌唱線。9th開始や倚音解決は音楽的に必要な場合のみ用いる。
+- Vn2・Va：LHのガイドトーンと短い応答を**役割分担**する。常に二人同時の長音和声に変えない。
+- Vn3：全・二分・四分中心の共通音または休符。RHの密度が高い区間は休符を許す。
+- Vc：根音/対旋律のいずれかを句ごとに明示。Cb不在時は低音の根拠を確保。
+- Cb：任意のpizz。Vcとの常時ユニゾンは避け、必要な発音時点だけ低音を補強。
+- **対位法監査**：独立した持続声部の平行5/8を検出し、意図的なジャズ的平行ブロックは別のテクスチャー型として分類。ガイドトーンの解決、倚音、短9度の密集衝突を確認する。
+
+### 10.7 誤用・例外・未解決事項
+
+**誤用**：
+- 「Powell型＝必ず左手4音」：誤り。
+- 「二音シェルなら和音の性格は常に確定」：誤り。root+7thでは3rd不在。
+- 「ガイドトーン最短移動ならPowellの演奏そのもの」：誤り。一般理論と史料的実証を混同。
+- 「左手の音を減らせばスウィングする」：誤り。
+- 「独奏でも常にrootを消す」：誤り。編成と音域に依存。
+
+**例外**：strideの挿入、ソロピアノ、ブルース的3rdの可変、sus/ペダル、オスティナート、LHの先行単音、特殊な反復テクスチャー。《Un Poco Loco》を通常ii–V–Iの省略シェルだけで説明しない。
+
+**引継ぎ事項（研究上限のため本テーマでは再研究しない）**：
+- Powell本人の原録音からLHの音高・拍位置を逐音採譜し教則例と照合する作業は未実施。
+- Levine図17-16〜24の各音符を画像から完全照合する作業は未実施。
+- 生成アルゴリズムv3は**仕様のみ**で、コード化・音響検証・MusicXML出力テスト未実施。
+- 12キーの異名同音綴り、左手の実測可奏性、テンポ別の発音密度、音色・残響によるマスキングは未検証。
+- これらは**次テーマの一般化した音域監査・リズム監査の仕様**に引き継ぐ。Powell型単独研究の4回目は実施しない。
+
+### 10.8 研究履歴と最終品質判定
+- 第1回（1/3）：独自理論モデル。左手3声の過大な同時音域を後に訂正。
+- 第2回（2/3）：Levineの出版教則原典に照合し、LH2音中心に修正。
+- **第3回（3/3）：出版社公式目次・章本文を照合し、三調の機能連結を12条件検査。生成仕様v3と歴史的根拠の限界を確定。**
+- **判定：理論・設計仕様としては保存可能。Powell本人の演奏に対する実証的再現性は未検証。歴史的実演分析の「完成」とは称さない。**
+- **次回対象：ドロップ2（1/3）。同一テーマ4回目は禁止。**
