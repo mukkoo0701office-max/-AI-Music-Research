@@ -39,3 +39,34 @@
 
 ## 未達と次回（2/3）
 今回のPythonは**構造変換だけ**を検証した。連続和音の最適声部進行、低音の音程限界、実際のアプローチ和音の生成、4声旋律ハーモナイズ、原譜の採譜は未実装・未検証。次回は8小節のii–V–Iを対象に**Drop2／Drop3とchromatic/dimアプローチの実音と解決を比較**する。3回で必ず終了。
+
+
+---
+
+# 第2回/最大3回：アプローチ和音とDrop 2/3の声部解決
+研究日: 2026-11-21。**累計2/3**。今回は実行可能な構造検証と、論文にある生成法の適用範囲の区別に重点を置く。
+
+## 資料照合と重要な制限
+- N. Emura et al., “A modular system generating Jazz-style arrangement for a given set of a melody and its chord name sequence,” *Acoustical Science and Technology* 29(1), 2008, https://www.jstage.jst.go.jp/article/ast/29/1/29_1_51/_pdf 。図3はclose/Drop2/Drop3、表1は4-way closeにdim/chromatic/diatonic approach、Drop2にdiatonic approachを割り当てる**当該プロトタイプの適用範囲**を明記する。したがって「Drop2へdim/chromatic approachを付けることが絶対に禁止」とは解釈しないが、同論文がその組合せを実装・検証したと主張してはならない。
+- Jazz arranging textbook chapter https://www.ithaca.edu/sites/default/files/2021-03/2019-book-chapter-school-jazz-arranging.pdf 。旋律をトップに固定し、Close→Drop2→Drop2+4を使い分ける際の声部配置・重複音への注意を参照。
+- *Grove Music*, “Harmony, jazz” https://docdrop.org/pdf/Strunk---2021---Jazz-harmony---1.-Terminology-and-theory-l5kpy.pdf 。Drop3は比較的まれな配置であり、どの曲でもDrop2と同頻度で用いる根拠はない。
+- Berklee Online, “Voice Leading for Guitar,” https://online.berklee.edu/takenote/voice-leading-for-guitar/ 。和声機能を維持するための声部連結とDrop2の関係。
+
+## 構造実験：Cmaj7へのアプローチ
+4-way close C4–E4–G4–B4 = MIDI (60,64,67,71)。
+- Drop2: **G3–C4–E4–B4** = (55,60,64,71)。第2声（上からG4）を1オクターブ下降。
+- Drop3: **E3–C4–G4–B4** = (52,60,67,71)。第3声（上からE4）を1オクターブ下降。
+- Chromatic approach to Drop2: **F♯3–B3–E♭4–B♭4** = (54,59,63,70)。各声が(+1,+1,+1,+1)半音でDrop2へ進む。**アプローチ時点のコード名はCmaj7ではない**。目標の直前に置く非機能的な平行半音アプローチとして解釈。
+- Diminished approach candidate: **B3–D4–F4–A♭4** = (59,62,65,68) はG7(♭9)の根音省略形。Drop2への**同一順位対応**では (-4,-2,-1,+3) 半音。クロマチック案のような全声半音解決にはならない。これは「dimなら自動的に滑らか」という誤解への反例。dimの転回形・オクターブ・目標Drop形・ベースを一体で探索する必要がある。
+- なおG7(♭9)のdim7の構成音を正しく識別するには**B–D–F–A♭**（3rd,5th,♭7,♭9）を使用。G7(♭9)をCmaj7へ解決する際、B→C、F→Eというガイドトーンの半音解決を優先する場合は**同一順位対応に拘らず声部の再割当てを行う**。
+
+## Python実行済み監査
+コード: jazz_piano_techniques/code/drop_approach_v2.py。
+実際にPythonを実行して、Close/Drop2/Drop3のpitch class保持、クロマチック案の4声半音解決、dim7の構成音、dim→Drop2の不均等な移動をassertで確認し、PASS。8小節・16和音イベントの**説明用の反復モデル**も生成して構造監査した。ただし全8小節の目標はCmaj7のままで、**前回予告したii–V–Iの実際の和声進行や音楽的な8小節作品を実装したわけではない**。この不足は明記して次回へ繰り越す。
+
+## 次回3/3の検証条件
+1. ii–V–Iまたは短調iiø–V–iの複数和音を含む8小節の**実際の和声進行**を作る。
+2. 旋律トップ音を保持し、Close/Drop2/Drop3候補とdim/chromatic approachの候補を各イベントで評価。
+3. 単なる4声半音平行移動だけでなく、3rd/7thの機能解決、ベースと和声の関係、内声の方向、低音の密集、アプローチの解決タイミングを監査。
+4. 弦6声に転用する際、トップ旋律・ガイドトーン・ベースを役割分担させ、音域と平行完全音程を別々に検査。
+5. 最大3回の上限に従い、未完があっても第3回で終了する。
