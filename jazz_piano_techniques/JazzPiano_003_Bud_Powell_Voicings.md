@@ -93,3 +93,89 @@ OUTPUT: independent LH event timeline + RH melodic timeline + validation log
 - **第1回（2026-11-21）：1/3**。理論モデル・3調の配置検査・作品例・未検証事項を記録。
 - 第2回は原録音/一次譜面照合、左手可奏性の再設計、拍位置の精査を優先。
 - 第3回で最終監査。**3/3後は完成度にかかわらずドロップ2へ移行**し、残課題は引継ぎ欄へ。
+
+
+## 9. 第二次研究（累計2/3）：Levine原典譜例の直接照合と「可奏な二音」へのモデル改訂（2026-11-21）
+
+### 9.1 検証対象・一次/二次資料の区別
+**直接確認した資料**：Mark Levine, *The Jazz Piano Book* (Sher Music, 1989), Chapter 17, pp.160–165。公開閲覧可能な書籍PDFの第17章本文と図17-16〜17-24の掲載位置・説明を直接照合した（譜例そのものの全音符逐音採譜は未実施）。これは**著者の出版教則原典**であり、Powell本人の1940〜50年代の録音という意味での一次演奏資料ではない。著作権のある譜例を転載せず、以下は独自の機能モデルを示す。
+- 書籍本文は、Bud Powell型を「通常2音、ときに3音」「主にroot/3rd(10th)/6th/7th」と明示。旧稿の**root+3rd+7thの3声を代表形とみなす方向は過度に一般化していた**。本改訂では2音をデフォルトとする。
+- 図17-16は《Ain't Misbehavin'》冒頭の**歴史的奏法を模した編曲例**、図17-17〜19はKey FのGm7–C7–Fmaj7を同じRHビバップ旋律で異なるLH配置にした**著者の例**。これを「Powellの特定録音を採譜した音」と取り違えない。
+- 図17-22〜24は《Confirmation》冒頭8小節をstride/Powell型/混合型で対照する**教則上の比較**。音数だけでなく、LHの役割と和声リズムが変化する。
+- 同章はPowell型LHの低い配置がRHの中音域旋律を開放する利点を挙げる一方、現代型ルートレスとの併用を認める。つまり**二音固定が絶対規則ではない**。
+- Levine本文は《Hallucinations》《Oh So Basal》などを聴取資料として指示するが、**本研究では原盤を逐音聴取・転写していない**。
+原典: https://www.redemption-church.com/worship/Songs/Real%20books/Other%20stuff/Sheet%20Music%20-%20The%20Jazz%20Piano%20Book.pdf （pp.160–165、特に162–165）。
+補助史料（学術研究、原録音ではない）: *Miles Davis: The Road to Modal Jazz*（UNT所蔵学位論文、pp.6–7）はPowellの左手を短いシンコペーションのアクセント、2〜4音の変動と記述。https://digital.library.unt.edu/ark:/67531/metadc3693/m2/1/high_res_d/thesis.pdf
+
+### 9.2 第1回の実装上の誤りを訂正
+旧稿のLH D2–F3–C4、G2–B♭3–F4等は、同時打鍵なら最外音間隔が2オクターブ前後あり、通常の一手での同時発音を前提にできない。これは**一人の左手コンピングのサンプルとして不適切**だった。
+修正：
+1. **2音LHを標準候補**とする。根音+♭7、根音+3、根音+10th（10thは一手同時を強制しない）、必要時に3rd+7th。
+2. 根音とガイドトーンを**別時刻**にする場合は同時和音として数えない。
+3. 3声以上の同時配置は最外音域と内部の混雑を別途検査する。12半音以下を今回の**保守的な機械的閾値**とするが、これは演奏家の実測データでも歴史的規則でもない。
+4. ベーシストがrootを示していても、LHのrootを常に禁止しない。重複が音響・リズム上問題になるときに回避する。
+
+### 9.3 二音の作編曲用モデル（独自例、下から順に）
+**Key C, ii–V–I：**
+- Dm7: LH D3–C4 = 1–♭7（2音、短7度）。RHはF4（♭3）等で和音の質を補える。
+- G7: LH G2–F3 = 1–♭7（2音、短7度）。RHはB3（3rd）等を担う。
+- Cmaj7: LH C3–B3 = 1–7（2音、長7度）。RHはE4（3rd）等を担う。
+この例では**rootが跳躍**し、ガイドトーンも必ず半音でつながるわけではない。これを失敗と即断せず、右手旋律との総合的な機能連結を評価する。前稿の「F3→F3→E3、C4→B3→B3」は**3声の理想化モデル**であって、歴史的Powell型2声の代表的実演データではない。
+
+**Key F：**
+- Gm7 LH G2–F3 (1–♭7)、C7 LH C3–B♭3 (1–♭7)、Fmaj7 LH F2–E3 (1–7)。
+**Key E♭：**
+- Fm7 LH F2–E♭3 (1–♭7)、B♭7 LH B♭2–A♭3 (1–♭7)、E♭maj7 LH E♭2–D3 (1–7)。
+上記3調は全て独自の機能例。メロディが3rdを示さない場合、**root+7thだけでは長短や属機能を十分確定できない**。3rdをRH、別の楽器、または次の発音に必ず割り当てる機能監査が必要。
+
+**ガイドトーン優先の別モード（ベースあり、Key C）**：
+- Dm7 LH F3–C4 (♭3–♭7)
+- G7 LH F3–B3 (♭7–3)
+- Cmaj7 LH E3–B3 (3–7)
+これはrootless guide-tone shellの独自例。**歴史的なBud Powell型の典型を保証するものではなく、編曲上の機能最適化モード**として別ラベルを付ける。ii→VではF保持/C→B半音、V→IではF→E半音/B保持。低音は別楽器D2→G2→C2。
+
+### 9.4 リズム生成はLHとRHの対話で決める
+- Powell型の核心はLHを「拍の常時刻み」から解放する点。**音数の少なさだけではビバップにならない**。
+- 各2小節でRHのフレーズ開始・頂点・休止・終止を抽出。LHの発音候補は(1)和声の転換、(2)RHの休符に対する応答、(3)先取りの短いアクセント。全拍一律の固定発音は禁止する。
+- ベースがウォーキングを続ける場面ではLHの低いrootの同時重複を減点。ベースが休止する場合にはLHのrootを加点。
+- 「シンコペーション」は弱拍の発音/強拍の休止と関係するが、具体的なPowell本人の拍位置分布をこの研究では測定していない。
+
+### 9.5 再利用可能な生成アルゴリズム v2（設計仕様）
+```text
+INPUT: chord timeline, RH melody notes/onsets/rests, bass events, meter, register
+for each harmonic segment:
+  identify harmonic function, third, seventh, root
+  choose MODE from {ROOT_SHELL, GUIDE_SHELL, ROLL_OR_SPLIT, SPECIAL_OSTINATO}
+  ROOT_SHELL: candidates = {root+third, root+seventh, root+tenth}
+  GUIDE_SHELL: candidates = {third+seventh} with root elsewhere
+  if RH or ensemble does not supply chord third: require its event in harmonic span
+  if root+tenth exceeds LH simultaneous span threshold: mark split/rolled, not block chord
+  evaluate LH attack times against RH activity and bass events
+  penalize persistent LH/RH collisions, low clusters, repeated metrical templates
+  prefer functional voice continuity; allow deliberate root jumps and LH silence
+  if ostinato/bitonality: require separate source-supported structural plan
+VALIDATE: note spelling, simultaneity, hand-span, functional completeness across ensemble,
+          melody/bass interaction, rhythmic variety, provenance
+OUTPUT: LH event plan, RH line plan, role assignments, confidence/validation log
+```
+**未実装**。音域とリズムの最適化重みは未校正。ハードな3rd必須制約はsus/ペダル/意図的曖昧さに例外を設ける。
+
+### 9.6 弦楽6声へ：同時音数ではなく役割を転写
+- Vn1: RHの単旋律・動機。9th開始/倚音の解決とフレーズ呼吸を保持。
+- Vn2/Va: LHの3rd/7th機能を分散。LHの短いコンピングは**必要な時だけ**和声応答に変換する。
+- Vn3: 共通音の持続または休符（4分以上中心）。全拍の刻みにしない。
+- Vc: ベースまたは対旋律。Cbが不在なら根音機能を担当。
+- Cb: 任意のpizz根音/ウォーキング。Vcとユニゾンを常時重複しない。
+- **禁則**：持続内声の平行5/8、短9度衝突、ガイドトーンの解決を別監査。ジャズ的意図的平行ブロックと古典的独立声部は区別する。
+
+### 9.7 実行済みテストと品質ゲート
+今回、Key C/F/E♭の各3和音の二音モデルについてMIDI音高差をJavaScriptで計算し、最外音が11半音以下、2音であることを検査した（**9/9通過**）。ただし、この閾値は「二音の同時距離」のみであり、運指・実演音響・全12調・作品譜例の逐音照合を意味しない。
+- **直接確認済み**: Levine原典書籍PDFの章本文・譜例配置・出典、GitHubの本マスター第1回、Rootless A/B第3回、Feedback_001。
+- **二次資料のみ**: UNT論文によるリズム/歴史の解説。直接原録音の聴取/採譜は未実施。
+- **未検証**: 図17-16〜24の全音符の逐音転写、Powell本人の録音と譜例の照合、個別曲でのLH発音時刻の統計、生成アルゴリズム実行、弦6の音響、全12調の異名同音。
+- **自己監査**: 原典を読んだことで「Bud Powell型＝root+3rd+7thの広い同時3音」という第1回の偏りを訂正できた。一方、今回の二音例も独自構成であり、本人の演奏における頻度を主張しない。右手の3rdを同じ拍に置く必要は必ずしもなく、和声スパン内の機能として確認する。
+
+### 変更履歴・研究回数
+- 2026-11-21 第1回：理論モデル・3調例・暫定アルゴリズム。
+- **2026-11-21 第2回：2/3**。Levine第17章の教則原典を直接確認し、同時LH3声の過大スパンを訂正、二音モデルとリズム生成v2を追加。
+- 第3回で史料・生成規則の最終監査を行い、未解決を引き継いで**必ず次のドロップ2へ移行**。第4回は行わない。
