@@ -20,3 +20,6 @@ The earlier Violin I m1–2 working excerpt encoded the metronome unit as eighth
 - 1 of 20 measures has undergone an initial visual structural audit; zero measures have passed full five-part note-by-note audit.
 - Next: verify every pitch and staff position in m1, encode five parts, compare rendered notation to source, then advance to m2.
 - Deliverables withheld until complete page (20 measures) is fully checked.
+
+## Correction after enlarged direct image inspection
+Previous statement 'quarter-note=126' is WRONG. The printed metronome symbol is **eighth-note=126** (flagged note), as in the preliminary XML. Correct tempo unit: eighth=126. This supersedes the earlier audit claim. Violin I measure 2 first dyad is C5+A5 (not C6 single note); local working excerpt has been corrected, but full score audit remains pending. Do not count any measure as fully verified.
