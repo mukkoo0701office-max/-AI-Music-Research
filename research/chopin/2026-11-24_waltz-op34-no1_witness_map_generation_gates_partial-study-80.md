@@ -1,0 +1,30 @@
+# Chopin Research 080 — Waltz Op.34 No.1 (1/3): witness map and generative architecture
+
+Date: 2026-11-24. Cumulative work-specific research: **1/3** (repository tree searched; no earlier Op.34 No.1 study in research/chopin). Next: **2/3**. Status: **PARTIAL, NOT SCORE-VERIFIED**.
+
+## Evidence tiers
+**Directly checked**: Chopin Online OCVE source inventory https://chopinonline.ac.uk/ocve/browse/acview/93b0c463a648827618856c32a8875947/ lists autograph presentation copy (bars 1–55, 56–112, 113–136) and French first-edition first impression with pages 2–9 spanning bars 1–240; corrected French reprint extends to bar 305. The mismatch in source ranges is a critical **witness alignment problem**, not proof that any exact passage was added or deleted. Full score images and note-level readings **NOT examined** in this run.
+**Directly checked**: Chopin Online edition catalogue https://chopinonline.ac.uk/aco/catalogue/waltz-opus-34-no-1/ distinguishes FFE first impression and corrected reprint, GFE, EFE and later impressions. Chicago first-edition catalogue https://home.uchicago.edu/~gwp/descriptions/34.pdf documents Paris/Leipzig/London imprint lineages. NIFC genre overview https://chopin.nifc.pl/en/chopin/gatunki/7_walce distinguishes brilliant concert waltzes from slower lyrical waltzes. These are **bibliographical/editorial evidence**, not independently transcribed notes.
+**Existing repository checked**: Chopin research 079 (Op.18 final 3/3), 07/08 (Op.10 No.2) and code/chopin_op10_2_generativestudy.py. The code's 16 sequential chromatic notes per bar and three independent clocks are a proof of event scheduling, not a stylistic validator. No user-approved example scores were accessed; therefore no claim of aesthetic consistency.
+
+## Reusable original algorithm proposal (NOT claims about exact Chopin bars)
+1. **Witness-qualified source graph**: `Witness(id, edition, impression, page, local_bar, canonical_section, verified_image)`; every asserted note must carry witness and image reference. Never align autograph 136-bar extent and published 305-bar extent by raw bar number.
+2. **Form-first episode graph**: `INTRO -> DANCE_A -> CONTRAST -> RETURN -> CODA` is a *candidate template for original composition*, not a verified Op.34/1 form analysis. Allow repeats and nested transitions only after evidence confirms their presence. Store 2-, 4-, 8-bar hypermetric targets separately from surface attacks.
+3. **Harmonic plan**: generate structural bass and cadence goals before right-hand texture. For each bar, choose `bass_anchor`, harmonic span(s), voice-leading tendency tones and permitted chordal revoicing; distinguish bass sustain from new bass attacks. Beat 2/3 accompaniment can be chordal, split, delayed, tied, or replaced by a countermelody; avoid a compulsory 'oom-pah-pah' loop.
+4. **Melodic plan**: generate phrase goal notes, accented dissonances, suspensions, neighbor and passing events. For each nonchord tone store `kind, onset, duration, harmonic_context, resolution_target, resolution_deadline`. A changed harmony at the resolution point must trigger reclassification rather than false success.
+5. **Two-bar motif genealogy**: represent a motive as contour, accent pattern, interval signature, harmonic destination and rhythm, not as a three-note loop. Transform with sequence, inversion, rhythmic displacement, truncation, register expansion, ornamental interpolation; require at least one invariant and one meaningful change across successive 2-bar units.
+6. **Event-time correctness**: use exact rational durations for 16ths, 32nds, grace-note anchoring and ties. Independent voices must fill the metrical span (or have explicit rests); held tones must remain active in vertical sonority checks. Slur does not imply sustain. Ornament notes do not redefine the harmonic rhythm.
+
+## Hard validation gates
+- Source claims: `source_witness && image_verified && local_bar && staff_voice && event` required before labeling a pitch or bar-specific harmony 'verified'.
+- Meter: per-voice rational durations, onset ordering, explicit rests and tied-note continuity; grace notes excluded from metrical sum unless notated as measured notes.
+- Harmony: compare chord-membership at each actual onset and across sustained notes; passing/neighbor/appoggiatura/suspension classifications require evidence of approach, accent, and resolution.
+- Polyphony: detect simultaneous cross-voice semitone collisions; classify as intentional tension vs unresolved artifact; prohibit silent dismissal of held-voice clashes.
+- Development: compare consecutive 2-bar windows for preserved motivic identity and controlled variation; penalize literal three-note cell repetition and arbitrary harmonic churn.
+- Editorial: variants stay separate, including impression corrections; any cross-source alignment must record insert/delete/replace and uncertainty.
+
+## Explicit exceptions and failure conditions
+Cadential delays may extend across a barline; not all accented dissonances resolve by step; registral doubling can create legitimate close intervals; expressive phrase slurs do not equal ties. Do not automatically reject these, but log contextual justification. A source inventory is not a direct score-image audit. The previously cited French first-impression page span stopping at 240 versus reprint ending 305 cannot be interpreted as a genuine shorter musical version without viewing the remaining source pages.
+
+## Self-audit and next run
+No primary score image was visually decoded, no original pitch/harmony verified, no Python executed, and no generator integrated in this run. Consequently this is a **source-map and executable-specification draft**, not a completed musical analysis. In 2/3 open the actual OCVE facsimile pages (first 16 bars and a contrasting later passage), log witness-specific note events and rhythmic texture, then run independent test fixtures for 2-bar transformations and nonchord-tone resolution. Keep maximum three total studies even if verification remains incomplete.
