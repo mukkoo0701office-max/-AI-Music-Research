@@ -1,0 +1,39 @@
+# Chopin Research 086 — Waltz Op.34 No.3 in F major: first-edition witness and ornament-clock grammar (study 1/3)
+
+Date: 2026-11-24 JST. **Work-specific cumulative count: 1/3**. Repository commit search for "Op34 No3" returned no prior commits; recent history closes Op.34 No.2 at 3/3 (085). This is a provisional count based on accessible repository search, not an exhaustive audit of all historical file names. Next: Op.34 No.3 study 2/3. **Status: PARTIAL; score-pixel evidence gate not passed.**
+
+## Primary-source inventory and strict evidence tiers
+- **French early printed witness**: Fryderyk Chopin Institute repository catalogue, https://repozytorium.nifc.pl/islandora/walc-op-34-nr-3-f-dur-0 , item mfc:26186, Schlesinger plate M.S. 2717.3, engraved musical pp. 2–9. The particular catalogued copy is dated **[1840–1842]**, therefore it is NOT automatically the December 1838 first impression. Catalogue metadata describes pencil alterations to accidentals and fingering on pp. 3, 4, 9. **Catalogued, not inspected at score-pixel level**; catalogue page timed out when opened.
+- **National Edition source commentary** (Jan Ekier and Paweł Kamiński), https://www.chopin-nationaledition.com/wp-content/uploads/2022/06/waltzes_commentaries.pdf , Source Commentary section 4, pp. 7–8 (PDF text around lines 354–371): no surviving autograph; French first edition FE (Schlesinger M.S. 2717, December 1838) based on lost autograph; German GE (Breitkopf & Härtel 6034) and English EE (Wessel 2282) depend on French publication/proofs and contain editorial adjustments. Editors privilege FE and annotated pupil copies. These are **editorial reports**, not direct inspection of source noteheads.
+- **National Edition performance commentary**, same URL, section 4: bars 1–9 left-hand arpeggiation suggestion; bars 83–84 and 87–88 RH ornaments cross-referenced to Op.18; bars 93 and 109 trill onset synchronized to LH bass. The following are **editorial interpretations**, not direct pixel readings of first editions.
+- **Source commentary specific variants**: bars 95 and 111 have non-uniform trill-ending accidentals; bar 148 left-hand tenth likely engraving mistake; bar 152 first quaver e¹ changed arbitrarily to f¹ in later collected editions; bars 162–163 c¹ later tied without authority. These facts are attributed to the editors; independent source-image verification remains pending.
+- NIFC work entry https://chopin.nifc.pl/en/chopin/kompozycja/230 calls the piece F major, before 1838, concise and symmetrical; the aesthetic description is interpretation, **not a measured formal segmentation**.
+
+## Engineering significance: preserve edition variants rather than normalize
+**Observation from commentary:** bars 95 and 111 differ in the ending of a trill despite analogy. Thus a generator must NOT force every parallel ornament into a single transposed identical realization. Distinguish (a) underlying motif identity, (b) notated ornamental realization, (c) local tonal-harmonic context, and (d) witness/editorial provenance. A change of key context may justify different accidental spelling and sounding pitch. The precise original noteheads have not been read here.
+
+## Original compositional algorithm (proposed; NOT a Chopin transcription)
+1. Plan a **phrase pair** with `motive_id, two_bar_role, tonal_region, cadence_goal, density_curve, register_curve`. Reuse a recognizable motive across the second pair but change at least one structural goal (cadence, bass destination, register, harmonic rhythm), except an explicitly tagged literal reprise. Do not assert an Op.34 No.3 formal boundary until score inspected.
+2. Generate bass, accompaniment, melody and ornaments on **separate Fraction-based voice timelines**. A 3/4 measure requires 3/4 occupancy *per voice*, not across simultaneously sounding voices. 12 sixteenths or 24 thirty-seconds occupy 3/4; tied continuations carry sounding time but do not create a new attack.
+3. For an arpeggiated chord, represent `notated_onset, sounding_attack_offset, anchor_note, anchor_voice, witness, editorial_policy` separately. Anticipation can place a grace/rolled attack before the beat, but **never silently change the notated rhythmic sum**. Preserve all chord pitches and separate their sounding order. This is a modeling choice; the National Edition's bars 1–9 interpretation must not be generalized as an immutable Chopin rule.
+4. Ornament object: `kind, upper/lower auxiliary, diatonic_spelling, local_key, resolution_pitch, onset_policy, source_witness, uncertainty`. A trill ending must be calculated from local harmonic context and witness rather than copied verbatim from an analogous bar. Mark unresolved source discrepancies `needs_manual_review`.
+5. Harmony spans `[start,end)` contain tonal function and spelled chord members. For each sounding note, evaluate at attack, harmonic boundary, and release. Candidate NCT classes: passing, neighbor, accented appoggiatura, prepared suspension, anticipation, unknown. A suspension requires preparation, actual continuation across boundary and subsequent resolution; a simple chromatic neighbor does not qualify. Accented dissonance is not automatically prohibited.
+6. A two-bar variation passes only when motive identity survives and the declared structural change is realized. Repeated three-note neighbor cells without a phrase-level change fail the development gate. Do not add ornamental density to conceal harmonic stasis.
+
+## Legacy code reviewed in this run
+Directly fetched `research/chopin/code/chopin_op10_2_generativestudy.py` and `research/chopin/code/chromatic_engine_v2.py`. The former builds eight 4/4 bars of uniform 16th-note chromatic scales with quarter-note harmony and root/fifth bass. The latter repeats four 3-note neighbor cells plus a 4-note approach, validates only the final target against chord pitch classes, and lacks contextual NCT / harmony-boundary checks. Neither is a usable 3/4 independent-voice and ornament-witness engine. Previous study 085 was read; 07/08 were not re-fetched this run. No production code was modified.
+
+## Executed synthetic tests — not Chopin evidence
+Ran independent Python `fractions.Fraction` assertions (2026-11-24): **PASS 5**:
+1. Twelve 1/16 durations total 3/4.
+2. Twenty-four 1/32 durations total 3/4.
+3. Independently concurrent bass and chord voices each cover 3/4.
+4. At time 1/4 the active-note set contains sustained bass and newly attacked chord tone.
+5. A two-bar candidate with unchanged structural goals is rejected, while one changing cadence goal passes.
+These are synthetic tests of temporal bookkeeping and a trivial variation gate; no claim of score fidelity, expressive quality, or full NCT audit. Production Python scripts were **not executed or integrated**.
+
+## Critical audit / limitations
+**FAIL source-image gate:** French print catalogued, but the hosted PDF score was not rendered or visually checked. Therefore **no primary-score note-by-note, chord-by-chord, or bar-level voice-leading extraction** is claimed. National Edition is a secondary critical commentary, albeit high-authority. Trill variants, editorial accidentals and bar numbers above are cited *as editorial statements*. No high-rated user compositions were independently retrieved. No end-to-end generator test or source-grounded harmonic reduction. This is a partial, useful source-and-engineering handoff, **not completed highest-quality research**.
+
+## Next-run requirements
+Op.34 No.3 **2/3**: obtain a legible page image of FE (ideally first impression) and GE, record exact page, bar, witness and noteheads for at least two contrasting two-bar phrases and bars 95/111, then test contextual ornament handling and NCT classification. Keep alternative spellings if witnesses differ. If inaccessible, document failure and proceed to 3/3; never conduct a fourth study.
