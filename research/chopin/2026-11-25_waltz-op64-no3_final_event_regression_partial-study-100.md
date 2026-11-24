@@ -1,0 +1,24 @@
+# Chopin Research 100 — Waltz Op.64 No.3 final 3/3 (partial)
+
+Date: 2026-11-25 JST. **Cumulative count: 3/3**: studies 098, 099, 100. **CLOSED: never study Op.64 No.3 a fourth time.** Prior research records are repository-scoped; no evidence of extra off-repository runs was obtained.
+
+## Source and provenance gate
+- Study 098 directly inspected one page of Kullak's *instructive edition*, PDF p.9 (printed p.39), reporting A-flat, 3/4, melodic slurs and bass/chord attacks. This is a historical **edited** witness, not an autograph or a confirmed first-edition reading. Its exact notes were **not independently re-read in this run**.
+- Study 099 verified IMSLP's catalog entry for Brandus's 1847 French first edition, plate 4743, scan #400823, but did **not** directly inspect its notation. The current attempt to retrieve the Wikimedia edited PDF through the web reader failed. Thus **no original pitch, measure, tie, ornament, harmony or source variant is certified** here.
+- References: https://imslp.org/wiki/Waltzes,_Op.64_(Chopin,_Fr%C3%A9d%C3%A9ric) ; https://upload.wikimedia.org/wikipedia/commons/9/94/Waltzes,_Op.64_(IA_imslp-op64-chopin-frdric).pdf ; https://enc.piano.or.jp/en/musics/23220 . PTNA's left-hand melody transfer is a secondary analytical assertion, not independently confirmed from the first edition.
+
+## Actual repository audit
+Read studies 098/099, Op.10 No.2 study 07 and its Python generator, and Feedback_001. The Op.10 No.2 generator is an original 4/4 eight-bar experiment: 16 chromatic sixteenths, 4 upper harmony quarters and 4 bass quarters per bar. Its per-bar unidirectional chromatic run is an inadequate model of long-range development; it does not check nonchord tones or independent harmony-crossing held notes. Its original note-count assertion is not an NCT test. The earlier v4 source audit in study 099 found 4-step monotonic direction blocks, not a literal three-note cell. The present module is separate and does not patch those generators.
+
+## Reusable synthetic grammar, NOT historical Chopin facts
+1. Plan section/cadence and harmonic rhythm; generate structural bass, role-bearing melody, and independent countervoice.
+2. Use explicit rational onsets and durations for each independent voice, including rests. In 3/4 each complete voice covers three quarter-note units per bar. Slurs do not merge attacks; ties require same pitch and contiguous events. A note held across a harmony boundary has one attack but separate harmonic classifications.
+3. Map each sounding pitch to every overlapping harmonic span. Chord membership is **not** enough to classify dissonance: nonchord tones require context (approach, accent, preparation, resolution). Treat unclassified dissonance as UNKNOWN and reject strict certification. Explicitly permitted extensions require harmonic authorization. The included executable test checks chord membership only, **not** full NCT taxonomy.
+4. Represent a two-bar motive as (contour, metric salience, harmonic goal, cadence function, voice role). A development candidate preserves a meaningful invariant and changes at least one structural dimension; an identical reprise must be labeled. This minimal structural predicate is a filter, **not** a proof of artistic quality.
+5. Melody transfer across hands is a possible arrangement operation. Keep accompaniment/bass clocks independent; do not infer it occurred in a specific original measure without primary notation.
+
+## Executed synthetic regression
+New file: `research/chopin/code/waltz_event_audit.py`. Executed locally using Python 3; output: `PASS: 8 synthetic assertions/groups; no score fidelity implied`. Cases: tied equal notes -> one attack; untied equal notes -> two attacks; sounding note crossing I/V -> two membership judgments; invalid tie pitch rejected; overlapping monophonic events rejected; overfull 13-sixteenth 3/4 bar rejected; missing-rest gap rejected; changed-harmony motive accepted while literal repeat requires reprise flag. These tests use **invented** MIDI pitches and harmony spans. They are not original score tests. The module uses Python 3.10+ union typing.
+
+## Critical limitations / handoff
+**PARTIAL, NOT COMPLETED AS HISTORICAL RESEARCH.** Brandus 1847 notation not inspected; no bar-level source collation, no first-edition/edited variant adjudication, no actual NCT resolution engine, no original-generator integration, no CI, no independent run of committed module. Local execution was on the same module source before GitHub upload; repository runtime execution remains unverified. Future works should inherit these as generalized engineering backlog, **not** as authorization for a fourth Op.64 No.3 run. Avoid using user preference feedback as evidence of Chopin's actual compositional decisions. Next work must be chosen after checking history; prioritize remaining eligible works and respect 3/3 maximum.
