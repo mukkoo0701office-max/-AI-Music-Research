@@ -1,0 +1,31 @@
+# Chopin Research 117 — Waltz in E minor B.56 / KK IVa/15 — first-edition visual witness and evidence limits (2/3, PARTIAL)
+Date: 2026-11-25 JST. Composition/arrangement algorithms only; no performance or fingering analysis.
+
+## Cumulative study count and scope
+Previous B.56 study: research/chopin/2026-11-25_waltz-b56_source_conflict_and_form_event_contract_partial-study-116.md (1/3). This record is 2/3. Repository directory was inspected in the prior study; full Git history including deleted/renamed files is not exhaustively audited. No fourth B.56 run permitted; next B.56 run, if any, is 3/3, then move on. Earlier Op.10 No.2 already exceeds cap and must not be reopened.
+
+## Directly inspected source and publication chronology
+IMSLP catalogue: https://imslp.org/wiki/Waltz_in_E_minor,_B.56_(Chopin,_Fr%C3%A9d%C3%A9ric)
+First-edition scan listing #97254: Mainz, Schott, n.d. [ca. 1868], plate 19551; seven pages. Catalogue's 'First Publication' field says 1868. These are catalogue claims, not independent bibliographic verification of the earliest publication. Previous study notes a competing 1851 claim, which remains unresolved; 1868 cannot be established as the earliest issue solely from this catalogue.
+**A first-edition preview image was directly opened**: https://imslp.org/images/c/ce/PV-Chopin_Walzer_B_56_Schott_19551_first_edition_1868.jpg . It is a short, cropped score excerpt, not the complete first-edition PDF. Visible: treble and bass staves, 3/4 meter and two-sharp key signature; an opening right-hand rest, subsequent rising and falling short-note gestures under slurs, and left-hand chords/bass support. A chromatic alteration is visibly printed in a later gesture. No measure numbers are visible in this crop; exact measure indexing, complete notes, harmonic functions, editions' variants and formal segmentation are NOT asserted. Preview is a published posthumous witness, not an autograph.
+IMSLP also lists Kullak (1880), Mikuli (1894), Scholtz (ca.1905), and later editions. Those are distinct editorial witnesses and must not be silently conflated with the Schott issue.
+Evidence grades: A=directly visible in preview (meter, key signature, gestures and layering); B=IMSLP catalogue metadata (plate, edition date); U=unverified (all note-by-note and bar-specific claims, 1851 vs 1868 first-publication dispute).
+
+## Compositional grammar — explicitly original design, NOT transcription
+Represent each phrase as a hierarchy: FORM node -> harmonic spans -> bass anchors and inner-voice continuities -> attacked melodic events -> ornament events. A phrase return must preserve identifiable cadence or contour constraints while allowing independent alterations in rhythm, chromatic approach, register and bass. To avoid the old repeated three-note cell, allocate variable gesture lengths, e.g. 4+5+3+4 attacked events over a selected phrase, with actual durations determined by exact rational timing and cadence goals; these numbers are an illustrative ORIGINAL algorithmic choice, not Chopin's notes.
+A two-bar 3/4 window contains 6 quarter-note units per voice, including rests. Use Fraction(1,4) for sixteenths and Fraction(1,8) for thirty-seconds in quarter-note units. Harmony spans must be gap-free and nonoverlapping within each analytical layer, and cover sounding events. Preserve accidental spelling separately from sounding semitone. Distinguish suspension (prepared tied dissonance resolving by step), accented appoggiatura (accented dissonance resolving), weak passing (stepwise between stable pitches), neighbor (departure and return), anticipation and unresolved UNKNOWN. The classification requires explicit harmony and meter; without either, return UNKNOWN, never an invented chord-tone judgment.
+Develop two-bar sequences with attack-level comparison: intervals in semitones and diatonic steps, rhythm, accent position, direction and harmonic function. Mark exact copy, literal transposition, tonal sequence, and changed motif separately; legitimate sequences are NOT errors. Bass and inner voice have their own event streams, harmonic goals and cross-voice collision warnings, avoiding universal prohibition of every perfect interval.
+
+## Existing code and known gaps
+Read research/chopin/2026-11-21_op10-no2_algorithm-study-07.md and -08.md and research/chopin/code/two_bar_event_validator_v1.py, as well as research/chopin/2026-11-25_waltz-op70-no3_final_event_validator_partial-study-115.md. The validator uses exact Fractions and reciprocal ties but treats only a six-quarter window, cannot represent cross-window tie state, and its motif comparator uses only contour signs; no NCT semantics or harmonic timeline. Study 08's 3-note-cell approach is a negative example. No changes to code were made this run.
+
+## Proposed falsification tests (NOT EXECUTED)
+1. With a 3/4 two-bar stream, accept exactly 6 quarter units; reject missing rests and 1/8-unit overflow.
+2. Test a 16th-to-32nd subdivision conserving onset and total duration; reject negative and zero duration.
+3. Supply chord changes inside a beat: NCT classification must use the harmony active at onset and resolution, not only bar-level chord label.
+4. Same contour with different interval sizes must not be treated as the same literal sequence; exact transposition should be recognized as sequence, not arbitrary variation.
+5. Cross-window ties require explicit outgoing and incoming boundary state; a rest cannot be a tie endpoint.
+6. No score-derived event may be labeled VERIFIED without edition, page, visual location, and transcription cross-check.
+
+## Critical verdict / handoff
+PARTIAL: the Schott first-edition **preview pixels** were directly inspected for the first time in this B.56 sequence, but the complete score PDF and note-level transcription were NOT inspected. The 1851/1868 publication discrepancy remains open. No Python tests executed, no production generator integration, no user-approved reference score independently checked. Therefore the primary-score gate is NOT satisfied for a full composition-grammar claim. Final permitted B.56 study (3/3) should obtain complete score pages, verify a small annotated two-bar fixture with edition/page references, and execute targeted tests. If not possible, close as incomplete and advance regardless.
