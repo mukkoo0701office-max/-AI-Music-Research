@@ -1,0 +1,28 @@
+# Chopin Nocturne Op.9 No.1 — source-access and validator boundary audit (study 2/3, provisional)
+Date: 2026-11-26. **PARTIAL / NOT SCORE-VERIFIED**.
+
+## History and scope
+Read study 1 (`2026-11-26_nocturne_op9_no1_opening_score_evidence_grammar_study01.md`), the history-integrity audit, and `code/two_bar_event_validator_v2.py` directly from GitHub in this run. Current visible Op.9 No.1 sequence: study 1 and this study 2; deleted-commit history not exhaustively audited. This study is counted **2/3 provisionally**; do not exceed 3 cumulative executions. Op.10 No.3 has >=6 prior studies and must not be restarted. No new work on that piece is attempted.
+
+## Source status
+Study 1 directly observed p.1 of the 2005 Pierre Gouin derivative edition, **not a first edition**. Primary candidates: French Schlesinger 1832 (https://chopinscores.org/en/partytura/3) and German Kistner 1833 (https://chopinscores.org/en/partytura/23), bibliographic claims inherited from study 1 and not independently reconfirmed. Both source pages timed out on this run. Accordingly **no new Chopin pitch, bar, harmony, variant, or non-chord-tone claim** is introduced. Study 1's 11:12 and 22:24 tuplet claims remain modern-edition observations, not first-edition facts.
+
+## Direct code audit: v2 concrete deficiencies
+1. `validate()` enforces an entire two-bar span per represented voice. It cannot represent anacrusis, changing voice participation, or a silence-only omitted voice without inserting explicit rests; this is a model contract, not a musicological fact.
+2. `Event` lacks spelled pitch, key/harmonic time map, metrical hierarchy, tuplet group ID, grace-event status, and independent inner-voice identity beyond a string. Therefore it **cannot** certify diatonic sequences, 11:12/22:24 grouping, suspension/appoggiatura/passing-tone identity, or vertical harmonic membership.
+3. The tie check only compares MIDI pitch and immediate predecessor group, with no note identity across changing chord voicings; enharmonic spellings are invisible. The grouping logic may misinterpret repeated same-pitch chord members; require stable event IDs and explicit tie endpoints.
+4. `classify_motif()` demands equal note counts and identical onsets/durations, thus classifies neither ornament insertion/deletion nor augmentation, displacement, rhythmic diminution or anchor-preserving 2-bar transformations. It is a literal transposition detector, not a motif grammar.
+5. No harmonic/bass audit, NCT resolution, structural parallel check, voice-crossing check or melodic contour evaluation exists. A synthetic PASS cannot establish score fidelity.
+
+## Proposed executable grammar contract (ORIGINAL DESIGN, not Chopin transcription)
+Represent each event with `event_id, voice_id, onset: Fraction, duration: Fraction, spelled_pitch, midi_pitch, structural_role, source_id, confidence`. Optional `tuplet_id, grace, tie_from, tie_to`. Store independent `HarmonySpan(start,end,root,quality,extensions,bass,source_status)` and `PhraseAnchor(time,pitch,role,phrase_id)`.
+- **Duration invariant:** for every explicit tuplet group, `sum(child durations)==declared group span`; ratio n:m is interpreted only with its notated base value, not automatically as n notes occupying an entire bar. Every attack's onset and end must be rational and inside its measure, except explicitly non-metrical grace events.
+- **Structural two-bar variation:** compare anchor interval contour, metrical position and harmonic target independent of ornament counts. Require at least one nontrivial transformation (register shift, anchor displacement, rhythmic augmentation, changed harmonic function, ornament density) and report which invariants survive. Repeated 3-note filler alone is not sufficient.
+- **NCT audit:** `PASSING` needs stepwise approach/departure in one voice, chord-tone anchors and an assigned harmony at attack; `NEIGHBOR` returns to a stable anchor; `SUSPENSION` requires preparation, tie/hold across harmony change, dissonance and step resolution; `APPOGGIATURA` requires accented dissonance and step resolution. If harmony, attack strength, spelling or resolution is missing, output `UNVERIFIED`, never a positive classification. Chromatic exceptions require explicit rationale.
+- **Independent accompaniment:** generate bass targets from harmonic spans first, then arpeggiation/inversion and inner-voice lines; check target arrival, voice overlap and structural parallel fifths/octaves, permitting documented intentional exceptions.
+
+## Test specification (NOT EXECUTED)
+Positive fixtures: 11-in-time-of-12 group with exact Fraction durations; 22-in-time-of-24; two-bar anchors with inserted ornamental notes; valid prepared suspension. Negative fixtures: wrong tuplet span; tied note without reciprocal endpoint; passing tone approached by leap; unresolved suspension; identical 3-note cells without phrase development; bass outside its harmonic span; accidental spelling mismatch. Add a real score-collation fixture only **after** primary page access.
+
+## Critical audit and handoff
+No Python tests executed this run. No original first-edition page directly inspected; all note-specific analysis and cross-edition variant claims remain unverified. No existing high-rated composition artifacts or master protocol were fetched, so aesthetic consistency is not certified. This document is an **implementation specification and code-gap audit**, not completed musicological research. For study 3/3, prioritize actual first-edition image collation, a runnable targeted negative-fixture suite and a final handoff; regardless of result, move to the next eligible piece after study 3.
